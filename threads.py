@@ -17,16 +17,16 @@ def process_queue():
         else:
             html = dowmLoad()
             pass
+def threaded_crawler():
+    while threads or carwl_url:
+        for thread in threads:
+            if not thread.is_alive():
+                threads.remove(thread)
+            while len(threads) < max_threads and carwl_url:
+                thread = threading.Thread(target=process_queue)
 
-while threads or carwl_url:
-    for thread in threads:
-        if not thread.is_alive():
-            threads.remove(thread)
-        while len(threads) < max_threads and carwl_url:
-            thread = threading.Thread(target=process_queue)
-
-            thread.setDaemon(True)
-            thread.start()
-            threads.append(thread)
-        time.sleep(1)
+                thread.setDaemon(True)
+                thread.start()
+                threads.append(thread)
+            time.sleep(1)
 
